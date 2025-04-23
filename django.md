@@ -25,7 +25,8 @@ django-admin --version
 
 
 ### 1.2 プロジェクトとアプリの作成
-一つのプロジェクトで、appを追加していくやり方
+簡単なアプリを作成する。Djangoは１つプロジェクトで複数のapp入れる方式のFW。最初```startproject```でプロジェクト作成、それから必要に応じて```startapp```でどんどんappを追加していく。DBもあるので、必ずDB移行コマンド```makemigrations```と```migrate```してから、```runserver```でサーバーを立ち上げる。
+
 #### 1.2.1 プロジェクト作成
 ```python
 # インストール問題なければ、プロジェクト作成. この例では、projectnameという名で作成します。
@@ -65,4 +66,24 @@ appname/
 ├── tests.py       # テストコード
 └── views.py       # HTTPリクエストやAPIに返すデータを定義
 ```
+生成したアプリをプロジェクトに追加する必要がある
+```python
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "appname", # <---ここに追加
+]
+```
+#### 1.2.3 DB 移行
+新しいテーブルを作成や、既存テーブルの編集など、DBになにか変更したあとDBの移行が必要。Djangoでは、DBを編集するためのコードを生成するコマンド```makemigrations```と、それを実行するコマンド```migrate```でDBを最新状態に更新する。
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
 DjangoのコンセプトはModel, View, Templete. ModelはDB、Viewでデータを処理や出力、Templateは表示のやり方。
+
