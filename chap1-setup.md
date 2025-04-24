@@ -149,7 +149,7 @@ python manage.py createsuperuser
 </p>
 
 
-##### 画面に```appname/models.py```で作成したUserがない？！
+<span style="color:orange">画面に```appname/models.py```で作成したUserがない？！</span>
 - 落ち着いてください。これは、```appname```の```admin.py```に登録していないからだ。
 
 ```python
@@ -164,6 +164,6 @@ admin.site.register(User) # models.pyのUserテーブル登録
 
 基本セットアップの手順は以上。
 
-[>>> 次：簡単アプリ作成](chap2-simple-app.md)
+[>> 次：簡単アプリ作成](chap2-simple-app.md)
 
 
