@@ -93,7 +93,7 @@ python manage.py migrate
 - DBの種類などの設定は、プロジェクトフォルダにある```settings.py```で変えられる。デフォルトはsqliteで、dbファイル名はdb.sqlite3。
 
 ```python
-# projectname/settings.py
+# .../projectname/settings.py
 # ...
 DATABASES = {
     'default': {
@@ -147,5 +147,23 @@ python manage.py createsuperuser
 <p align="center">
   <img src="admin.jpg" alt="folder structure" width="311" height="125">
 </p>
+
+
+##### 画面に```appname/models.py```で作成したUserがない？！
+- 落ち着いてください。これは、```appname```の```admin.py```に登録していないからだ。
+
+```python
+# .../appname/admin.py
+from django.contrib import admin
+from .models import User
+
+admin.site.register(User) # models.pyのUserテーブル登録
+```
+
+- これで管理画面に```appname/models.py```のUserが反映される
+
+基本セットアップの手順は以上。
+
+[>>> 次：簡単アプリ作成](chap2-simple-app.md)
 
 
