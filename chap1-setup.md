@@ -1,12 +1,12 @@
-## Django入門
+## 1.0 Django入門：セットアップ編
 
-### 1.0 環境
+### 1.1 環境
 - VS Codeを使用。PyCharmでは、特にインストールに関してやり方異なる。Djangoに関する説明は基本Editor/IDEに関係なく、両方同じ。
-- Linux系のOS（Windowsは
+- Linux系のOS
 - Python v3.10
-- Django v5.2
+- Django v5.1
 
-### 1.1 インストール
+### 1.2 インストール
 ```python
 # プロジェクトフォルダ作成
 mkdir project && cd project
@@ -24,10 +24,10 @@ django-admin --version
 ```
 
 
-### 1.2 プロジェクトとアプリの作成
+### 1.3 プロジェクトとアプリの作成
 簡単なアプリを作成する。Djangoは１つプロジェクトで複数のapp入れる方式のFW。最初```startproject```でプロジェクト作成、それから必要に応じて```startapp```でどんどんappを追加していく。DBもあるので、必ずDB移行コマンド```makemigrations```と```migrate```してから、```runserver```でサーバーを立ち上げる。
 
-#### 1.2.1 プロジェクト作成
+#### 1.3.1 プロジェクト作成
 ```python
 # インストール問題なければ、プロジェクト作成. この例では、projectnameという名で作成します。
 django-admin startproject projectname
@@ -45,13 +45,13 @@ projectname/             # 任意の名前、一般的にはdjangoのプロジ�
 │
 ├── manage.py            # DjangoのCLI
 │
-└── .venv/               # Virtual environment
+└── .venv/               # 仮想環境
 ```
 - asgiとwsgiは、デプロイの時に使う。ほとんど編集する必要がない。（編集必要の例：middlewareやwebsocketを使う）
 - settings.pyは、DB、メディアフォルダ、セキュリティなど、アプリを設定する
 - urls.pyはアプリのurl pathを設定するファイル。Reactで言うとrouteのpathname。ブラウザ上のurlのpathを指定する。
 
-#### 1.2.2　アプリ追加
+#### 1.3.2　アプリ追加
 ```python
 python manage.py startapp appname
 ```
@@ -78,7 +78,7 @@ INSTALLED_APPS = [
     "appname", # <---ここに追加
 ]
 ```
-#### 1.2.3 DB 移行
+#### 1.3.3 DB 移行
 新しいテーブルを作成や、既存テーブルの編集など、DBになにか変更したあとDBの移行が必要。Djangoでは、DBを編集するためのコードを生成するコマンド```makemigrations```と、それを実行するコマンド```migrate```でDBを最新状態に更新する。
 ```
 python manage.py makemigrations
@@ -125,7 +125,7 @@ INSTALLED_APPS = [
 ```
 - ほとんどのWebアプリケーションは、何らかのユーザー管理や承認処理が必要。自ら作成する手間を省くため、Djangoは標準で含まれている。
 
-#### 1.2.4 Djangoサーバーを立ち上げる
+#### 1.3.4 Djangoサーバーを立ち上げる
 - 下記のコマンドでサーバーを立ち上げる
 ```python
 python manage.py runserver 0.0.0.0:3030 
@@ -133,6 +133,19 @@ python manage.py runserver 0.0.0.0:3030
 ```
 
 - http://localhost:3030 にアクセスし、立ち上がったページを確認できる
+<p align="center">
+  <img src="lp.jpg" alt="folder structure" width="165" height="119">
+</p>
 
-DjangoのコンセプトはModel, View, Templete. ModelはDB、Viewでデータを処理や出力、Templateは表示のやり方。
+#### 1.3.5 Superuser（管理者）作成と管理画面
+一回立ち上がったサーバーを切り、ターミナルに下記のコマンドで```superuser```を作成。パスワードの入力は必須。
+```
+python manage.py createsuperuser
+```
+再度サーバーを立ち上げ、http://localhost:3030/admin にアクセス。ユーザー名とパスワードを入力して、ログイン。管理画面が表示される。ここで、DBの閲覧や編集などができる。
+
+<p align="center">
+  <img src="admin.jpg" alt="folder structure" width="311" height="125">
+</p>
+
 
