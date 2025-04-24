@@ -67,6 +67,7 @@ appname/
 └── views.py       # HTTPリクエストやAPIに返すデータを定義
 ```
 - 次はDB移行説明があるため、例としてDBに画像登録用のテーブルを作成する。```appname/models.py```にテーブルの```class```を書く
+
 ```python
 # .../appname/models.py
 from django.db import models
