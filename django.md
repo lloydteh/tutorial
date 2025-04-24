@@ -84,6 +84,55 @@ INSTALLED_APPS = [
 python manage.py makemigrations
 python manage.py migrate
 ```
+- これを実行すると、rootフォルダにDBの```db.sqlite3```ファイルが作られる。
+
+<p align="center">
+  <img src="dbSS.jpg" alt="folder structure" width="139" height="142">
+</p>
+
+- DBの種類などの設定は、プロジェクトフォルダにある```settings.py```で変えられる。デフォルトはsqliteで、dbファイル名はdb.sqlite3。
+
+```python
+# projectname/settings.py
+# ...
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+# ...
+```
+- 生成されたdb.sqlite3の中身を確認すれば、```appname/models.py```に定義されたテーブルも作成された。
+<p align="center">
+  <img src="dbTables.jpg" alt="folder structure" width="232" height="263">
+</p>
+
+- これらのテーブルはdjangoのbuilt-inアプリで使うもので、```projectname/settings.py```の中にある```INSTALLED_APPS```で指定されている。
+
+```python
+# ...
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'appname',
+]
+# ...
+```
+- ほとんどのWebアプリケーションは、何らかのユーザー管理や承認処理が必要。自ら作成する手間を省くため、Djangoは標準で含まれている。
+
+#### 1.2.4 Djangoサーバーを立ち上げる
+- 下記のコマンドでサーバーを立ち上げる
+```python
+python manage.py runserver 0.0.0.0:3030 
+# 0.0.0.0はネットワーク上で公開の指定、 3030は適当なポート番号（3000～65535）
+```
+
+- http://localhost:3030 にアクセスし、立ち上がったページを確認できる
 
 DjangoのコンセプトはModel, View, Templete. ModelはDB、Viewでデータを処理や出力、Templateは表示のやり方。
 
