@@ -66,6 +66,20 @@ appname/
 ├── tests.py       # テストコード
 └── views.py       # HTTPリクエストやAPIに返すデータを定義
 ```
+- 次はDB移行説明があるため、例としてDBに画像登録用のテーブルを作成する。```appname/models.py```にテーブルの```class```を書く
+```python
+# .../appname/models.py
+from django.db import models
+
+class Image(models.Model):
+    image_name = models.CharField(max_length=50)
+    image_path = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+```
+- ```django.db```の```models```で、DBテーブルの型などを指定。```DateTimeField```には、```auto_now_add```でレコード作成時の時刻を記録、```auto_now```で更新時刻を記録。<a href="https://docs.djangoproject.com/en/5.2/ref/models/fields/#datetimefield">参照ページ</a>
+
 生成したアプリをプロジェクトに追加する必要がある
 ```python
 INSTALLED_APPS = [
@@ -78,6 +92,7 @@ INSTALLED_APPS = [
     "appname", # <---ここに追加
 ]
 ```
+
 #### 1.3.3 DB 移行
 新しいテーブルを作成や、既存テーブルの編集など、DBになにか変更したあとDBの移行が必要。Djangoでは、DBを編集するためのコードを生成するコマンド```makemigrations```と、それを実行するコマンド```migrate```でDBを最新状態に更新する。
 ```
@@ -149,18 +164,19 @@ python manage.py createsuperuser
 </p>
 
 
-<span style="color:orange">画面に```appname/models.py```で作成したUserがない？！</span>
-- 落ち着いてください。これは、```appname```の```admin.py```に登録していないからだ。
+<span style="color:orange">画面に```appname/models.py```で作成したImageがない？！</span>
+- 落ち着いてください。これは、```appname/admin.py```に登録していないからだ。
 
 ```python
 # .../appname/admin.py
 from django.contrib import admin
-from .models import User
+from .models import Image
 
-admin.site.register(User) # models.pyのUserテーブル登録
+admin.site.register(Image) # models.pyのImageテーブル登録
+
 ```
 
-- これで管理画面に```appname/models.py```のUserが反映される
+- これで管理画面に```appname/models.py```のImageが反映される
 
 基本セットアップの手順は以上。
 
